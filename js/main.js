@@ -102,10 +102,10 @@ function matchedBlock(firstBlock,secondBlock){
     };
 };
 //timer 
-let d = 0;
 let count; // Declare count globally to be accessible
 
 function timing() {
+    let d = 0;
     count = setInterval(() => {
         document.querySelector(".timer span").innerHTML = ++d;
         if (d >= 120) {
@@ -178,7 +178,9 @@ function addToStorage() {
             try: tries,
         };
 
-        window.localStorage.setItem("user",JSON.stringify(person));
+        let users = window.localStorage.setItem("user",JSON.stringify(person)) || [];
+        users.push(person);
+        localStorage.setItem("users",JSON.stringify(users));
     }
 }
 
@@ -186,6 +188,6 @@ function addToPageFromStorage(){
     let data = JSON.parse(localStorage.getItem("user"));
     let divStat = document.querySelector(".show");
     let p = document.createElement("p");
-    p.appendChild(document.createTextNode(`The Name: ${data.name} His Time: ${data.time} Number Of tries:${data.try}`));
+    p.appendChild(document.createTextNode(`Name: ${data.name} | Time: ${data.time} | Tries:${data.try}`));
     divStat.appendChild(p);
 }
